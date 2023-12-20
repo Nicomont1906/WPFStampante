@@ -34,7 +34,7 @@ Costruttore che inzializza colori e fogli
             switch (c)
             {
                 case Colore.C:
-                    C = 100;
+                    C = 100; 
                     break;
                 case Colore.M:
                     M = 100;
