@@ -15,7 +15,7 @@ Classe "Pagina"
 
 Enum Colore
 ***
-
+ 
 All'interno del progetto andiamo a creare una Cartella Models nel quale andremo ad inserire le due classi.
 
 Classe Stampante:
