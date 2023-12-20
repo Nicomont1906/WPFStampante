@@ -15,11 +15,13 @@ Classe "Pagina"
 
 Enum Colore
 
-<img src="https://github.com/Nicomont1906/WPFStampante/assets/127590621/a742e85b-ab9f-44ea-a878-1bb7ae9524d2">
+
 
 ***
  
 All'interno del progetto andiamo a creare una Cartella Models nel quale andremo ad inserire le due classi.
+
+<img src="https://github.com/Nicomont1906/WPFStampante/assets/127590621/a742e85b-ab9f-44ea-a878-1bb7ae9524d2">
 
 Classe Stampante:
  ```
