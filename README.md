@@ -155,3 +155,22 @@ public MainWindow()
                 }
             }
 ```
+
+creiamo un metodo SalvaSuFile in modo tale da poter aggiornare continuamente i valori all'interno del file csv ogni volta che stampiamo dei fogli casuali.
+
+```
+  private void SalvaSuFile()
+        {
+            try
+            {
+                using (StreamWriter wr = new StreamWriter("C:\\Users\\eneam\\Desktop\\montaspro.nicolo.4i.Stampante\\Models\\StampantePersistente.csv", false))
+                {
+                    wr.WriteLine($"{stampante.C};{stampante.M};{stampante.Y};{stampante.B};{stampante.Fogli}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Errore durante il salvataggio su file: " + ex.Message);
+            }
+        }
+```
