@@ -1,4 +1,4 @@
-﻿using montaspro.nicolo._4i.Stampante1.Models;
+
 using System;
 using System.IO;
 using System.Windows;
@@ -7,13 +7,14 @@ namespace montaspro.nicolo._4i.Stampante1
 {
     public partial class MainWindow : Window
     {
-        private Stampante stampante;
+        private Models.Stampante stampante;
+
 
         public MainWindow()
         {
             InitializeComponent();
+            stampante = new Models.Stampante(); 
 
-            stampante = new Stampante();
 
             try
             {
@@ -62,7 +63,7 @@ namespace montaspro.nicolo._4i.Stampante1
 
         private void StampaPaginaCasualeButtonClick(object sender, RoutedEventArgs e)
         {
-            Pagina pagina = new Pagina();
+            Models.Pagina pagina = new Models.Pagina();
             bool stampaRiuscita = stampante.Stampa(pagina);
 
             risultatoTextBlock.Text = stampaRiuscita ? "Stampa riuscita!" : "Stampa non riuscita: inchiostro insufficiente o carta esaurita.";
@@ -71,6 +72,8 @@ namespace montaspro.nicolo._4i.Stampante1
             {
                 AggiornaUI();
             }
+
+            SalvaSuFile();
         }
 
       
@@ -95,47 +98,66 @@ namespace montaspro.nicolo._4i.Stampante1
             {
                 MessageBox.Show("Inserisci un numero valido.", "Errore", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            SalvaSuFile();
         }
 
         private void RiempiSerbatoiButtonClick(object sender, RoutedEventArgs e)
         {
-            foreach (Stampante.Colore colore in Enum.GetValues(typeof(Stampante.Colore)))
+            foreach (Models.Stampante.Colore colore in Enum.GetValues(typeof(Models.Stampante.Colore)))
             {
                 stampante.SostituisciColore(colore);
             }
 
             risultatoTextBlock.Text = "Tutti i serbatoi sono stati riempiti.";
             AggiornaUI();
+            SalvaSuFile();
         }
 
 
 
         private void CaricaMagentaButtonClick(object sender, RoutedEventArgs e)
         {
-            stampante.SostituisciColore(Stampante.Colore.M);
+            stampante.SostituisciColore(Models.Stampante.Colore.M);
             risultatoTextBlock.Text = "Il serbatoio di inchiostro magenta è stato caricato.";
             contatoreMagentaTextBlock.Text = "100%";
+            SalvaSuFile();
         }
         private void CaricaCianoButtonClick(object sender, RoutedEventArgs e)
         {
-            stampante.SostituisciColore(Stampante.Colore.C);
+            stampante.SostituisciColore(Models.Stampante.Colore.C);
             risultatoTextBlock.Text = "Il serbatoio di inchiostro ciano è stato caricato.";
             contatoreCianoTextBlock.Text = "100%";
+            SalvaSuFile();
         }
 
       
         private void CaricaNeroButtonClick(object sender, RoutedEventArgs e)
         {
-            stampante.SostituisciColore(Stampante.Colore.B);
+            stampante.SostituisciColore(Models.Stampante.Colore.B);
             risultatoTextBlock.Text = "Il serbatoio di inchiostro nero è stato caricato.";
             contatoreNeroTextBlock.Text = "100%";
+            SalvaSuFile();
         }
         private void CaricaGialloButtonClick(object sender, RoutedEventArgs e)
         {
-            stampante.SostituisciColore(Stampante.Colore.Y);
+            stampante.SostituisciColore(Models.Stampante.Colore.Y); 
             risultatoTextBlock.Text = "Il serbatoio di inchiostro giallo è stato caricato.";
             contatoreGialloTextBlock.Text = "100%";
+            SalvaSuFile();
         }
-
+        private void SalvaSuFile()
+        {
+            try
+            {
+                using (StreamWriter wr = new StreamWriter("C:\\Users\\eneam\\Desktop\\montaspro.nicolo.4i.Stampante\\Models\\StampantePersistente.csv", false))
+                {
+                    wr.WriteLine($"{stampante.C};{stampante.M};{stampante.Y};{stampante.B};{stampante.Fogli}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Errore durante il salvataggio su file: " + ex.Message);
+            }
+        }
     }
 }
