@@ -47,6 +47,7 @@ namespace montaspro.nicolo._4i.Stampante1
             AggiungiCartaButton.Click += AggiungiCartaButtonClick;
             riempiSerbatoiButton.Click += RiempiSerbatoiButtonClick;
             stampaPaginaCasualeButton.Click += StampaPaginaCasualeButtonClick;
+
         }
 
         private void AggiornaUI()
@@ -70,6 +71,38 @@ namespace montaspro.nicolo._4i.Stampante1
                 AggiornaUI();
             }
 
+            SalvaSuFile();
+        }
+
+        private void CaricaGialloButtonClick(object sender, RoutedEventArgs e)
+        {
+            stampante.SostituisciColore(Models.Stampante.ColoreStampante.Giallo);
+            risultatoTextBlock.Text = "Il serbatoio di inchiostro giallo è stato caricato.";
+            contatoreGialloTextBlock.Text = "100%";
+            SalvaSuFile();
+        }
+
+        private void CaricaMagentaButtonClick(object sender, RoutedEventArgs e)
+        {
+            stampante.SostituisciColore(Models.Stampante.ColoreStampante.Magenta);
+            risultatoTextBlock.Text = "Il serbatoio di inchiostro magenta è stato caricato.";
+            contatoreMagentaTextBlock.Text = "100%";
+            SalvaSuFile();
+        }
+
+        private void CaricaCianoButtonClick(object sender, RoutedEventArgs e)
+        {
+            stampante.SostituisciColore(Models.Stampante.ColoreStampante.Ciano);
+            risultatoTextBlock.Text = "Il serbatoio di inchiostro ciano è stato caricato.";
+            contatoreCianoTextBlock.Text = "100%";
+            SalvaSuFile();
+        }
+
+        private void CaricaNeroButtonClick(object sender, RoutedEventArgs e)
+        {
+            stampante.SostituisciColore(Models.Stampante.ColoreStampante.Nero);
+            risultatoTextBlock.Text = "Il serbatoio di inchiostro nero è stato caricato.";
+            contatoreNeroTextBlock.Text = "100%";
             SalvaSuFile();
         }
 
@@ -106,38 +139,6 @@ namespace montaspro.nicolo._4i.Stampante1
 
             risultatoTextBlock.Text = "Tutti i serbatoi sono stati riempiti.";
             AggiornaUI();
-            SalvaSuFile();
-        }
-
-        private void CaricaMagentaButtonClick(object sender, RoutedEventArgs e)
-        {
-            stampante.SostituisciColore(Models.Stampante.ColoreStampante.Magenta);
-            risultatoTextBlock.Text = "Il serbatoio di inchiostro magenta è stato caricato.";
-            contatoreMagentaTextBlock.Text = "100%";
-            SalvaSuFile();
-        }
-
-        private void CaricaCianoButtonClick(object sender, RoutedEventArgs e)
-        {
-            stampante.SostituisciColore(Models.Stampante.ColoreStampante.Ciano);
-            risultatoTextBlock.Text = "Il serbatoio di inchiostro ciano è stato caricato.";
-            contatoreCianoTextBlock.Text = "100%";
-            SalvaSuFile();
-        }
-
-        private void CaricaNeroButtonClick(object sender, RoutedEventArgs e)
-        {
-            stampante.SostituisciColore(Models.Stampante.ColoreStampante.Nero);
-            risultatoTextBlock.Text = "Il serbatoio di inchiostro nero è stato caricato.";
-            contatoreNeroTextBlock.Text = "100%";
-            SalvaSuFile();
-        }
-
-        private void CaricaGialloButtonClick(object sender, RoutedEventArgs e)
-        {
-            stampante.SostituisciColore(Models.Stampante.ColoreStampante.Giallo);
-            risultatoTextBlock.Text = "Il serbatoio di inchiostro giallo è stato caricato.";
-            contatoreGialloTextBlock.Text = "100%";
             SalvaSuFile();
         }
 
