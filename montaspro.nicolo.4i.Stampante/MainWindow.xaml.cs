@@ -1,4 +1,3 @@
-
 using System;
 using System.IO;
 using System.Windows;
@@ -9,30 +8,28 @@ namespace montaspro.nicolo._4i.Stampante1
     {
         private Models.Stampante stampante;
 
-
         public MainWindow()
         {
             InitializeComponent();
-            stampante = new Models.Stampante(); 
-
+            stampante = new Models.Stampante();
 
             try
             {
-                StreamReader reader = new StreamReader("C:\\Users\\eneam\\Desktop\\montaspro.nicolo.4i.Stampante\\Models\\StampantePersistente.csv");
-                string line = reader.ReadLine();
+                StreamReader lettore = new StreamReader("C:\\Users\\studente.ITTSBELLUZZIDAV\\Desktop\\montaspro.nicolo.4i.Stampante\\Models\\StampantePersistente.csv");
+                string riga = lettore.ReadLine();
 
-                if (line != null && line.Split(';').Length >= 5)
+                if (riga != null && riga.Split(';').Length >= 5)
                 {
-                    int.TryParse(line.Split(';')[0], out int ciano);
-                    int.TryParse(line.Split(';')[1], out int magenta);
-                    int.TryParse(line.Split(';')[2], out int giallo);
-                    int.TryParse(line.Split(';')[3], out int nero);
-                    int.TryParse(line.Split(';')[4], out int fogli);
+                    int.TryParse(riga.Split(';')[0], out int ciano);
+                    int.TryParse(riga.Split(';')[1], out int magenta);
+                    int.TryParse(riga.Split(';')[2], out int giallo);
+                    int.TryParse(riga.Split(';')[3], out int nero);
+                    int.TryParse(riga.Split(';')[4], out int fogli);
 
-                    stampante.C = ciano <= 0 ? 100 : ciano;
-                    stampante.M = magenta;
-                    stampante.Y = giallo;
-                    stampante.B = nero;
+                    stampante.Ciano = ciano <= 0 ? 100 : ciano;
+                    stampante.Magenta = magenta;
+                    stampante.Giallo = giallo;
+                    stampante.Nero = nero;
                     stampante.Fogli = fogli;
 
                     AggiornaUI();
@@ -54,10 +51,10 @@ namespace montaspro.nicolo._4i.Stampante1
 
         private void AggiornaUI()
         {
-            contatoreCianoTextBlock.Text = $"{stampante.C}%";
-            contatoreMagentaTextBlock.Text = $"{stampante.M}%";
-            contatoreGialloTextBlock.Text = $"{stampante.Y}%";
-            contatoreNeroTextBlock.Text = $"{stampante.B}%";
+            contatoreCianoTextBlock.Text = $"{stampante.Ciano}%";
+            contatoreMagentaTextBlock.Text = $"{stampante.Magenta}%";
+            contatoreGialloTextBlock.Text = $"{stampante.Giallo}%";
+            contatoreNeroTextBlock.Text = $"{stampante.Nero}%";
             contatoreFogliTextBlock.Text = $"{stampante.Fogli}/200";
         }
 
@@ -76,7 +73,6 @@ namespace montaspro.nicolo._4i.Stampante1
             SalvaSuFile();
         }
 
-      
         private void AggiungiCartaButtonClick(object sender, RoutedEventArgs e)
         {
             try
@@ -103,7 +99,7 @@ namespace montaspro.nicolo._4i.Stampante1
 
         private void RiempiSerbatoiButtonClick(object sender, RoutedEventArgs e)
         {
-            foreach (Models.Stampante.Colore colore in Enum.GetValues(typeof(Models.Stampante.Colore)))
+            foreach (Models.Stampante.ColoreStampante colore in Enum.GetValues(typeof(Models.Stampante.ColoreStampante)))
             {
                 stampante.SostituisciColore(colore);
             }
@@ -113,45 +109,45 @@ namespace montaspro.nicolo._4i.Stampante1
             SalvaSuFile();
         }
 
-
-
         private void CaricaMagentaButtonClick(object sender, RoutedEventArgs e)
         {
-            stampante.SostituisciColore(Models.Stampante.Colore.M);
+            stampante.SostituisciColore(Models.Stampante.ColoreStampante.Magenta);
             risultatoTextBlock.Text = "Il serbatoio di inchiostro magenta è stato caricato.";
             contatoreMagentaTextBlock.Text = "100%";
             SalvaSuFile();
         }
+
         private void CaricaCianoButtonClick(object sender, RoutedEventArgs e)
         {
-            stampante.SostituisciColore(Models.Stampante.Colore.C);
+            stampante.SostituisciColore(Models.Stampante.ColoreStampante.Ciano);
             risultatoTextBlock.Text = "Il serbatoio di inchiostro ciano è stato caricato.";
             contatoreCianoTextBlock.Text = "100%";
             SalvaSuFile();
         }
 
-      
         private void CaricaNeroButtonClick(object sender, RoutedEventArgs e)
         {
-            stampante.SostituisciColore(Models.Stampante.Colore.B);
+            stampante.SostituisciColore(Models.Stampante.ColoreStampante.Nero);
             risultatoTextBlock.Text = "Il serbatoio di inchiostro nero è stato caricato.";
             contatoreNeroTextBlock.Text = "100%";
             SalvaSuFile();
         }
+
         private void CaricaGialloButtonClick(object sender, RoutedEventArgs e)
         {
-            stampante.SostituisciColore(Models.Stampante.Colore.Y); 
+            stampante.SostituisciColore(Models.Stampante.ColoreStampante.Giallo);
             risultatoTextBlock.Text = "Il serbatoio di inchiostro giallo è stato caricato.";
             contatoreGialloTextBlock.Text = "100%";
             SalvaSuFile();
         }
+
         private void SalvaSuFile()
         {
             try
             {
-                using (StreamWriter wr = new StreamWriter("C:\\Users\\eneam\\Desktop\\montaspro.nicolo.4i.Stampante\\Models\\StampantePersistente.csv", false))
+                using (StreamWriter wr = new StreamWriter("C:\\Users\\studente.ITTSBELLUZZIDAV\\Desktop\\montaspro.nicolo.4i.Stampante\\Models\\StampantePersistente.csv", false))
                 {
-                    wr.WriteLine($"{stampante.C};{stampante.M};{stampante.Y};{stampante.B};{stampante.Fogli}");
+                    wr.WriteLine($"{stampante.Ciano};{stampante.Magenta};{stampante.Giallo};{stampante.Nero};{stampante.Fogli}");
                 }
             }
             catch (Exception ex)
