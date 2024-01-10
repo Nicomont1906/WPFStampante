@@ -1,35 +1,36 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace montaspro.nicolo._4i.Stampante1.Models
 {
     public class Stampante
     {
-        public int C { get; set; }
-        public int M { get; set; }
-        public int Y { get; set; }
-        public int B { get; set; }
+        public int Ciano { get; set; }
+        public int Magenta { get; set; }
+        public int Giallo { get; set; }
+        public int Nero { get; set; }
         public int Fogli { get; set; }
 
         public Stampante()
         {
-            C = M = Y = B = 100;
+            Ciano = Magenta = Giallo = Nero = 100;
             Fogli = 200;
         }
 
-        public bool Stampa(Pagina p)
+        public bool Stampa(Pagina pagina)
         {
             if (Fogli > 0 &&
-                C >= p.C &&
-                M >= p.M &&
-                Y >= p.Y &&
-                B >= p.B)
+                Ciano >= pagina.Ciano &&
+                Magenta >= pagina.Magenta &&
+                Giallo >= pagina.Giallo &&
+                Nero >= pagina.Nero)
             {
-                C -= p.C;
-                M -= p.M;
-                Y -= p.Y;
-                B -= p.B;
+                Ciano -= pagina.Ciano;
+                Magenta -= pagina.Magenta;
+                Giallo -= pagina.Giallo;
+                Nero -= pagina.Nero;
                 Fogli--;
 
                 return true;
@@ -38,32 +39,32 @@ namespace montaspro.nicolo._4i.Stampante1.Models
             return false;
         }
 
-        public void SostituisciColore(Colore c)
+        public void SostituisciColore(ColoreStampante colore)
         {
-            switch (c)
+            switch (colore)
             {
-                case Colore.C:
-                    C = 100;
+                case ColoreStampante.Ciano:
+                    Ciano = 100;
                     break;
-                case Colore.M:
-                    M = 100;
+                case ColoreStampante.Magenta:
+                    Magenta = 100;
                     break;
-                case Colore.Y:
-                    Y = 100;
+                case ColoreStampante.Giallo:
+                    Giallo = 100;
                     break;
-                case Colore.B:
-                    B = 100;
+                case ColoreStampante.Nero:
+                    Nero = 100;
                     break;
             }
         }
 
-        public void AggiungiCarta(int qta)
+        public void AggiungiCarta(int quantita)
         {
-            if (qta > 0)
+            if (quantita > 0)
             {
-                if (Fogli + qta <= 200)
+                if (Fogli + quantita <= 200)
                 {
-                    Fogli += qta;
+                    Fogli += quantita;
                 }
                 else
                 {
@@ -72,12 +73,12 @@ namespace montaspro.nicolo._4i.Stampante1.Models
             }
         }
 
-        public enum Colore
+        public enum ColoreStampante
         {
-            C,
-            M,
-            Y,
-            B
+            Ciano,
+            Magenta,
+            Giallo,
+            Nero
         }
     }
 }
